@@ -48,24 +48,27 @@ export default function NewTransaction() {
     return (
         <div className="transaction-container">
             <h3 className="header">Perform a New Transaction</h3>
-            <table className="table table-striped" style={{ marginTop: 20 }}>
-                <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Transaction Amount</th>
-                        <th>Transaction Address</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="text" placeholder="Enter user" /></td>
-                        <td><input type="number" placeholder="Enter amount" /></td>
-                        <td><input type="text" placeholder="Enter address" /></td>
-                        <td><button type="button">Submit</button></td>
-                    </tr>
-                </tbody>
-            </table>
+            <form onSubmit={onSubmit}>
+                <table className="table table-striped" style={{ marginTop: 20 }}>
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Transaction Amount</th>
+                            <th>Transaction Address</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" onChange={(e) => updateForm({ name: e.target.value })} placeholder="Enter user" /></td>
+                            <td><input type="number" onChange={(e) => updateForm({ transactionAmount: e.target.value })} placeholder="Enter amount" /></td>
+                            <td><input type="text" onChange={(e) => updateForm({ transactionAddress: e.target.value })} placeholder="Enter address" /></td>
+                            <td><button type="submit">Submit</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
         </div>
     );
+    
 }
