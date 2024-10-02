@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function NewTransaction() {
     return (
-        <div className="container">
-            <h3 className="header">Perform a new transaction</h3>
+        <div className="transaction-container">
+            <h3 className="header">Perform a New Transaction</h3>
             <table className="table table-striped" style={{ marginTop: 20 }}>
                 <thead>
                     <tr>
                         <th>User</th>
-                        <th>Transaction amount</th>
-                        <th>Transaction address</th>
+                        <th>Transaction Amount</th>
+                        <th>Transaction Address</th>
                         <th>Action</th>
                     </tr>
                 </thead>
+                <tbody>
+                    {/* Add your table rows here */}
+                </tbody>
             </table>
         </div>
     );
