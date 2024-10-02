@@ -1,6 +1,7 @@
 import checkauth from "../check-auth.mjs";
 import express from "express"
 import db from "../db/conn.mjs";
+import { RegEx } from "../regex.mjs";
 
 const router = express.Router();
 
@@ -14,9 +15,9 @@ router.get("/", checkauth, async (req, res) => {
 //new transaction
 router.post("/newtransaction", checkauth, async (req, res) => {
     let newDocument = {
-        user: req.body.user,
-        transactionAmount: req.body.transactionAmount,
-        transactionAddres: req.body.transactionAddres
+        user: RegEx.testNumbers(req.body.user),
+        transactionAmount: RegEx.testSpecialCharacters(req.body.transactionAmount),
+        transactionAddress: RegEx.testNumbers(req.body.transactionAddress)
     };
     let collection = await db.collection("transactions");
     let result = await collection.insertOne(newDocument);
