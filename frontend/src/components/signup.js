@@ -26,6 +26,11 @@ export default function Signup() {
                 body: JSON.stringify(newPerson),
             });
 
+            console.log(response)
+
+            const data = await response.json();
+            console.log(data);
+
             if (!response.ok) {
                 throw new Error("Signup failed");
             }
@@ -34,6 +39,7 @@ export default function Signup() {
             navigate("/login");
         } catch (error) {
             window.alert(error);
+            console.log(error)
         }
     }
 

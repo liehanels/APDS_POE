@@ -17,7 +17,7 @@ export class RegEx {
         const regex = new RegExp(pattern);
         return regex.test(string);
     }
-    // Nethod to test for special characters
+    // Method to test for special characters
     static testSpecialCharacters(string) {
         const pattern = `[^a-zA-Z0-9'"]+`;
         const regex = new RegExp(pattern);

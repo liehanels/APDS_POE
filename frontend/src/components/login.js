@@ -18,6 +18,7 @@ export default function Login() {
         const newPerson = { ...form };
 
         try {
+            console.log("Sending request to backend")
             const response = await fetch("https://localhost:3001/user/login", {
                 method: "POST",
                 headers: {
@@ -25,12 +26,13 @@ export default function Login() {
                 },
                 body: JSON.stringify(newPerson),
             });
-
+            console.log("Request sent")
             if (!response.ok) {
                 throw new Error("Login failed");
             }
 
             const data = await response.json();
+            console.log(data);
             const { token, name } = data;
             console.log(`Name: ${name}\nToken: ${token}`);
 
@@ -41,6 +43,7 @@ export default function Login() {
             navigate("/newtransaction");
         } catch (error) {
             window.alert(error);
+            console.log(error);
         }
     }
 
