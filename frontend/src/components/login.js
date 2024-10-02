@@ -45,37 +45,39 @@ export default function Login() {
     }
 
     return (
-        <div className="login-container">
-            <h3>Login</h3>
-            <form onSubmit={onSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="name"
-                        value={form.name}
-                        onChange={(e) => updateForm({ name: e.target.value })}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        id="password"
-                        value={form.password}
-                        onChange={(e) => updateForm({ password: e.target.value })}
-                    />
-                </div>
-                <div className="form-group">
-                    <input
-                        type="submit"
-                        value="Login"
-                        className="btn btn-primary"
-                    />
-                </div>
-            </form>
+        <div className="App-header">
+            <div className="login-container">
+                <h3>Login</h3>
+                <form onSubmit={onSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="name">Name</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="name"
+                            value={form.name}
+                            onChange={(e) => updateForm({ name: e.target.value })}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            id="password"
+                            value={form.password}
+                            onChange={(e) => updateForm({ password: e.target.value })}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <input
+                            type="submit"
+                            value="Login"
+                            className="btn btn-primary"
+                        />
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }
