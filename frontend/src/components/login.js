@@ -4,7 +4,7 @@ import { useAuth } from "./AuthProvider";
 
 export default function Login() {
     const [form, setForm] = useState({
-        name: "",
+        accountnum: "",
         password: "",
     });
     const { login } = useAuth();
@@ -32,17 +32,16 @@ export default function Login() {
             if (!response.ok) {
                 throw new Error("Login failed");
             }
-
             const data = await response.json();
             console.log(data);
-            const { token, name } = data;
+            const { token, accountnum } = data;
             login(token);
-            console.log(`Name: ${name}\nToken: ${token}`);
+            console.log(`Name: ${accountnum}\nToken: ${token}`);
 
             localStorage.setItem("jwt", token);
-            localStorage.setItem("name", name);
+            localStorage.setItem("accountnum", accountnum);
 
-            setForm({ name: "", password: "" });
+            setForm({ accountnum: "", password: "" });
             navigate("/newtransaction");
         } catch (error) {
             window.alert(error);
@@ -56,13 +55,13 @@ export default function Login() {
                 <h3>Login</h3>
                 <form onSubmit={onSubmit}>
                     <div className="form-group">
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">Account Number</label>
                         <input
                             type="text"
                             className="form-control"
                             id="name"
-                            value={form.name}
-                            onChange={(e) => updateForm({ name: e.target.value })}
+                            value={form.accountnum}
+                            onChange={(e) => updateForm({ accountnum: e.target.value })}
                         />
                     </div>
                     <div className="form-group">

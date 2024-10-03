@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 export default function Signup() {
     const [form, setForm] = useState({
         name: "",
+        accountnum: "",
         password: "",
     });
     const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function Signup() {
             const data = await response.json();
             console.log(data);
 
-            setForm({ name: "", password: "" });
+            setForm({ name: "", accountnum: "", password: "" });
             navigate("/login");
         } catch (error) {
             window.alert(error);
@@ -53,6 +54,16 @@ export default function Signup() {
                         id="name"
                         value={form.name}
                         onChange={(e) => updateForm({ name: e.target.value })}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="name">Account Number</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="name"
+                        value={form.accountnum}
+                        onChange={(e) => updateForm({ accountnum: e.target.value })}
                     />
                 </div>
                 <div className="form-group">

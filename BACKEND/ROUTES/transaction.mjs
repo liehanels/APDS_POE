@@ -8,9 +8,9 @@ const router = express.Router();
 //get all transactions for a user
 router.get("/transactions", checkauth, async (req, res) => {
     try {
-        const userName = req.query.name; // Assuming the user's name is passed as a query parameter
+        const accountnum = req.query.accountnum;
         const collection = await db.collection("transactions");
-        const transactions = await collection.find({ user: userName }).toArray();
+        const transactions = await collection.find({ accountnum: accountnum }).toArray();
 
         res.status(200).send(transactions);
     } catch (error) {
@@ -25,7 +25,7 @@ router.post("/newtransaction", checkauth, async (req, res) => {
         console.log("Request Body:", req.body);
 
         // Validate inputs
-        const isValidUser = RegEx.testAlphabet(req.body.user);
+        const isValidUser = RegEx.testAlphanumerical(req.body.accountnum);
         const isValidTransactionAmount = RegEx.testNumbers(req.body.transactionAmount);
         const isValidTransactionAddress = RegEx.testAlphanumerical(req.body.transactionAddress);
 
@@ -43,7 +43,7 @@ router.post("/newtransaction", checkauth, async (req, res) => {
 
         // Create the new document with the actual values
         let newDocument = {
-            user: req.body.name,
+            accountnum: req.body.accountnum,
             transactionAmount: req.body.transactionAmount,
             transactionAddress: req.body.transactionAddress
         };

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 
 export default function NewTransaction() {
     const [form, setForm] = useState({
-        name: "",
+        accountnum: "",
         transactionAmount: "",
         transactionAddress: "",
     });
@@ -12,10 +12,10 @@ export default function NewTransaction() {
     console.log(token);
 
     useEffect(() => {
-        const storedName = localStorage.getItem("name");
-        console.log(storedName);
-        if (storedName) {
-            setForm((prev) => ({ ...prev, name: storedName }));
+        const accountnum = localStorage.getItem("accountnum");
+        console.log(accountnum);
+        if (accountnum) {
+            setForm((prev) => ({ ...prev, accountnum: accountnum }));
         }
     }, []);
 
@@ -42,10 +42,10 @@ export default function NewTransaction() {
             }
 
             const data = await response.json();
-            const { token: newToken, name } = data;
-            console.log(`Name: ${name}\nToken: ${newToken}`);
+            const { token: newToken, accountnum } = data;
+            console.log(`Account Num: ${accountnum}\nToken: ${newToken}`);
 
-            setForm({ name: name, transactionAmount: "", transactionAddress: "" });
+            setForm({ accountnum: accountnum, transactionAmount: "", transactionAddress: "" });
             navigate("/viewtransactions");
         } catch (error) {
             window.alert(error);
@@ -59,7 +59,7 @@ export default function NewTransaction() {
                 <table className="table table-striped" style={{ marginTop: 20 }}>
                     <thead>
                         <tr>
-                            <th>User</th>
+                            <th>Account Num</th>
                             <th>Transaction Amount</th>
                             <th>Transaction Address</th>
                             <th>Action</th>
@@ -67,7 +67,7 @@ export default function NewTransaction() {
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="text" value={form.name} readOnly /></td>
+                            <td><input type="text" value={form.accountnum} readOnly /></td>
                             <td><input type="number" value={form.transactionAmount} onChange={(e) => updateForm({ transactionAmount: e.target.value })} placeholder="Enter amount" /></td>
                             <td><input type="text" value={form.transactionAddress} onChange={(e) => updateForm({ transactionAddress: e.target.value })} placeholder="Enter address" /></td>
                             <td><button type="submit">Submit</button></td>

@@ -3,12 +3,12 @@ import React, { useState, useEffect } from "react";
 export default function Transactions() {
     const [transactions, setTransactions] = useState([]);
     const token = localStorage.getItem("jwt");
-    const userName = localStorage.getItem("name");
+    const accountnum = localStorage.getItem("accountnum");
 
     useEffect(() => {
         async function fetchTransactions() {
             try {
-                const response = await fetch(`https://localhost:3001/transaction/transactions?name=${userName}`, {
+                const response = await fetch(`https://localhost:3001/transaction/transactions?accountnum=${accountnum}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export default function Transactions() {
         }
 
         fetchTransactions();
-    }, [userName, token]);
+    }, [accountnum, token]);
 
     return (
         <div className="transactions-container">
@@ -44,7 +44,7 @@ export default function Transactions() {
                 <tbody>
                     {transactions.map((transaction, index) => (
                         <tr key={index}>
-                            <td>{transaction.user}</td>
+                            <td>{transaction.accountnum}</td>
                             <td>{transaction.transactionAmount}</td>
                             <td>{transaction.transactionAddress}</td>
                         </tr>
