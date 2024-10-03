@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { useAuth } from "./AuthProvider";
 
 export default function Login() {
     const [form, setForm] = useState({
         name: "",
         password: "",
     });
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     function updateForm(value) {
@@ -34,6 +36,7 @@ export default function Login() {
             const data = await response.json();
             console.log(data);
             const { token, name } = data;
+            login(token);
             console.log(`Name: ${name}\nToken: ${token}`);
 
             localStorage.setItem("jwt", token);
