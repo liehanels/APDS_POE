@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import DOMPurify from 'dompurify';
 
 export default function NewTransaction() {
     const [form, setForm] = useState({
@@ -25,8 +26,15 @@ export default function NewTransaction() {
 
     async function onSubmit(e) {
         e.preventDefault();
-        console.log("Form state on submit:", form)
-        const newTransaction = { ...form };
+        console.log("Form state on submit:", form);
+
+        // Sanitize form data
+        const sanitizedForm = {
+            accountnum: DOMPurify.sanitize(form.accountnum),
+            transactionAmount: DOMPurify.sanitize(form.transactionAmount),
+            transactionAddress: DOMPurify.sanitize(form.transactionAddress),
+        };
+
         try {
             const response = await fetch("https://localhost:3001/transaction/newtransaction", {
                 method: "POST",
@@ -34,7 +42,7 @@ export default function NewTransaction() {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify(newTransaction),
+                body: JSON.stringify(sanitizedForm),
             });
 
             if (!response.ok) {
