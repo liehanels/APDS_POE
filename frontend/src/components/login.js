@@ -52,7 +52,7 @@ export default function Login() {
     return (
         <div className="App-header">
             <div className="login-container">
-                <h3>Login</h3>
+                <h2>Login</h2>
                 <form onSubmit={onSubmit}>
                     <div className="form-group">
                         <label htmlFor="name">Account Number</label>

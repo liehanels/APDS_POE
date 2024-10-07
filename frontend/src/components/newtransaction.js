@@ -61,28 +61,30 @@ export default function NewTransaction() {
     }
 
     return (
-        <div className="transaction-container">
-            <h3 className="header">Perform a New Transaction</h3>
-            <form onSubmit={onSubmit}>
-                <table className="table table-striped" style={{ marginTop: 20 }}>
-                    <thead>
-                        <tr>
-                            <th>Account Num</th>
-                            <th>Transaction Amount</th>
-                            <th>Transaction Address</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="text" value={form.accountnum} readOnly /></td>
-                            <td><input type="number" value={form.transactionAmount} onChange={(e) => updateForm({ transactionAmount: e.target.value })} placeholder="Enter amount" /></td>
-                            <td><input type="text" value={form.transactionAddress} onChange={(e) => updateForm({ transactionAddress: e.target.value })} placeholder="Enter address" /></td>
-                            <td><button type="submit">Submit</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
+        <div className="App-header">
+            <div className="transaction-container">
+                <h2 className="App">Perform a New Transaction</h2>
+                <form onSubmit={onSubmit}>
+                    <table className="table table-striped" style={{ marginTop: 20 }}>
+                        <thead>
+                            <tr>
+                                <th>Account Num</th>
+                                <th>Transaction Amount</th>
+                                <th>Transaction Address</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" value={form.accountnum} readOnly /></td>
+                                <td><input type="number" value={form.transactionAmount} onChange={(e) => updateForm({ transactionAmount: e.target.value })} placeholder="Enter amount" /></td>
+                                <td><input type="text" value={form.transactionAddress} onChange={(e) => updateForm({ transactionAddress: e.target.value })} placeholder="Enter address" /></td>
+                                <td><button type="submit">Submit</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
         </div>
     );
 }

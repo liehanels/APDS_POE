@@ -31,26 +31,28 @@ export default function Transactions() {
     }, [accountnum, token]);
 
     return (
-        <div className="transactions-container">
-            <h3 className="header">Your Transactions</h3>
-            <table className="table table-striped" style={{ marginTop: 20 }}>
-                <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Transaction Amount</th>
-                        <th>Transaction Address</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {transactions.map((transaction, index) => (
-                        <tr key={index}>
-                            <td>{transaction.accountnum}</td>
-                            <td>{transaction.transactionAmount}</td>
-                            <td>{transaction.transactionAddress}</td>
+        <div className="App-header">
+            <div className="transaction-container">
+                <h2 className="App">Your Transactions</h2>
+                <table className="table table-striped" style={{ marginTop: 20 }}>
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Transaction Amount</th>
+                            <th>Transaction Address</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {transactions.map((transaction, index) => (
+                            <tr key={index}>
+                                <td>{transaction.accountnum}</td>
+                                <td>{transaction.transactionAmount}</td>
+                                <td>{transaction.transactionAddress}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }
