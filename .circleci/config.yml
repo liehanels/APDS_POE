@@ -7,7 +7,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - run: cd ../APDS_POE/BACKEND
+      - run: cd ../../APDS_POE/BACKEND
       - run: npm start
       - attach_workspace:
           at: ~/workspace
