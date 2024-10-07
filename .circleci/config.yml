@@ -7,7 +7,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - run: cd ../../../BACKEND/package.json
+      - run: cd ../BACKEND/package.json
       - run: npm start
       - attach_workspace:
           at: ~/workspace
