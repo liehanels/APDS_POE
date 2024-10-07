@@ -5,6 +5,11 @@ export class RegEx {
         const regex = new RegExp(pattern);
         return regex.test(string);
     }
+    static testPassword(string) {
+        const pattern = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$';
+        const regex = new RegExp(pattern);
+        return regex.test(string);
+    }
     // Method to test if a string contains only alphanumerical characters
     static testAlphanumerical(string) {
         const pattern = '^[a-zA-Z0-9 _]+$';

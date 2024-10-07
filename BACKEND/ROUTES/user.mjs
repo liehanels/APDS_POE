@@ -18,7 +18,8 @@ router.post("/signup", async (req, res) => {
     if (!RegEx.testAlphabet(name)) {
         return res.status(400).json({ message: "Invalid name format" });
     }
-
+    // Test the password strength
+    const passwordStrong = RegEx.testPassword(password);
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -28,15 +29,20 @@ router.post("/signup", async (req, res) => {
         accountnum: accountnum,
         password: hashedPassword
     };
-
-    try {
-        let collection = await db.collection("users");
-        let result = await collection.insertOne(newDocument);
-        console.log(result);
-        res.status(201).send(result);
-    } catch (error) {
-        console.error("Signup error: ", error);
-        res.status(500).json({ message: "Something went wrong, please try again." });
+    if (passwordStrong)
+    {
+        try {
+            let collection = await db.collection("users");
+            let result = await collection.insertOne(newDocument);
+            console.log(result);
+            res.status(201).send(result);
+        } catch (error) {
+            console.error("Signup error: ", error);
+            res.status(500).json({ message: "Something went wrong, please try again." });
+        }
+    }
+    else {
+        res.status(500).json({ message: "Weak password."})
     }
 });
 
