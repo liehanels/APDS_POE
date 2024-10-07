@@ -7,9 +7,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - run: 
-      - cd backend
-      - npm start
+      - run: cd backend npm start
       - attach_workspace:
           at: ~/workspace
       - run: |
