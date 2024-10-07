@@ -8,8 +8,8 @@ jobs:
     steps:
       - checkout
       - run: 
-      cd backend
-      npm start
+      - cd backend
+      - npm start
       - attach_workspace:
           at: ~/workspace
       - run: |
