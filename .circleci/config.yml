@@ -7,7 +7,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - run: find .
+      - run: npm run start
       - attach_workspace:
           at: ~/workspace
       - run: |
