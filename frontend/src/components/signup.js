@@ -39,17 +39,14 @@ export default function Signup() {
                 },
                 body: JSON.stringify(newPerson),
             })
-            .then(response => {
+            .then(async response => {
                 if (!response.ok) {
-                    return response.json().then(errorData => {
-                        throw new Error(errorData.message || 'Something went wrong');
-                    });
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Something went wrong');
                 }
-                return response.json();
+                const data = await response.json();
+                console.log(data);
             })
-
-            const data = await response.json();
-            console.log(data);
 
             setForm({ name: "", accountnum: generateAccountNum(), password: "", confirmPassword: "", });
             navigate("/login");
