@@ -4,15 +4,28 @@ import { useNavigate } from "react-router";
 export default function Signup() {
     const [form, setForm] = useState({
         name: "",
-        accountnum: "",
+        accountnum: generateAccountNum(),
         password: "",
+        confirmPassword: "",
     });
     const navigate = useNavigate();
 
     function updateForm(value) {
         setForm((prev) => ({ ...prev, ...value }));
     }
+    //generates a random account number
+    function generateAccountNum(length = 10) {
+        const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            result += characters[randomIndex];
+        }
+        return result;
+    }
 
+    console.log(generateAccountNum());
+    
     async function onSubmit(e) {
         e.preventDefault();
 
@@ -25,16 +38,20 @@ export default function Signup() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(newPerson),
-            });
-
-            if (!response.ok) {
-                throw new Error("Signup failed");
-            }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error(errorData.message || 'Something went wrong');
+                    });
+                }
+                return response.json();
+            })
 
             const data = await response.json();
             console.log(data);
 
-            setForm({ name: "", accountnum: "", password: "" });
+            setForm({ name: "", accountnum: generateAccountNum(), password: "", confirmPassword: "", });
             navigate("/login");
         } catch (error) {
             window.alert(error);
@@ -43,8 +60,8 @@ export default function Signup() {
     }
 
     return (
-        <div className="signup-container">
-            <h3>Sign Up</h3>
+        <div className="App-header">
+            <h2>Sign Up</h2>
             <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
@@ -63,7 +80,7 @@ export default function Signup() {
                         className="form-control"
                         id="name"
                         value={form.accountnum}
-                        onChange={(e) => updateForm({ accountnum: e.target.value })}
+                        readOnly
                     />
                 </div>
                 <div className="form-group">
@@ -74,6 +91,16 @@ export default function Signup() {
                         id="password"
                         value={form.password}
                         onChange={(e) => updateForm({ password: e.target.value })}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="confirmPassword">Confirm Password</label>
+                    <input
+                        type="password"
+                        className="form-control"
+                        id="confirmPassword"
+                        value={form.confirmPassword}
+                        onChange={(e) => updateForm({ confirmPassword: e.target.value })}
                     />
                 </div>
                 <div className="form-group">

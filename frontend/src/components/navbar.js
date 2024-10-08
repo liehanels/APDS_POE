@@ -40,6 +40,11 @@ export default function Navbar() {
                             Logout
                         </button>
                     </li>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" to="/signup">
+                            Sign Up
+                        </NavLink>
+                    </li>
                 </ul>
             </div>
         </nav>

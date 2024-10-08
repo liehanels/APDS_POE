@@ -5,6 +5,7 @@ import ProtectedRoute from  './components/ProtectedRoute.js';
 //components
 import Navbar from './components/navbar';
 import Login from './components/login';
+import Signup from './components/signup.js';
 import Newtransaction from './components/newtransaction';
 import ViewTransactions from './components/viewtransactions';
 
@@ -30,6 +31,7 @@ const App = () => {
                   <ViewTransactions />
                 </ProtectedRoute>
                 } />
+            <Route path="/signup" element={<Signup />} />
           </Routes>
         </div>
       </BrowserRouter>
