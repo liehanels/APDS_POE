@@ -12,7 +12,7 @@ var bruteforce = new ExpressBrute(store);
 
 // Sign up method
 router.post("/signup", async (req, res) => {
-    const { name, tellerID, password, confirmPassword } = req.body;
+    const { name, tellerID, isAdmin,  password, confirmPassword } = req.body;
 
     // Validate the name
     if (!RegEx.testAlphabet(name)) {
@@ -31,6 +31,7 @@ router.post("/signup", async (req, res) => {
     let newDocument = {
         name: name,
         tellerID: tellerID,
+        isAdmin: isAdmin,
         password: hashedPassword,
         confirmPassword: confirmHashedPassword
     };
@@ -59,12 +60,11 @@ router.post("/signup", async (req, res) => {
 
 // Login method
 router.post("/login", bruteforce.prevent, async (req, res) => {
-    const { name, accountnum, password } = req.body;
+    const { name, userID, password } = req.body;
     console.log(name + " trying to sign in");
-
     try {
         const collection = await db.collection("users");
-        const user = await collection.findOne({ accountnum });
+        const user = await collection.findOne({ userID });
 
         if (!user) {
             return res.status(401).json({ message: "Account number invalid" });
@@ -78,11 +78,11 @@ router.post("/login", bruteforce.prevent, async (req, res) => {
 
         // Authentication success
         const token = jwt.sign(
-            { username: req.body.accountnum, password: req.body.password },
+            { username: req.body.userID, password: req.body.password },
             "asdFASFLkasdASdASdAfSGASAsfjsSjkdAKJnsdjImCryingkjasDkASd",
             { expiresIn: "1h" }
         );
-        res.status(200).json({ message: "Sign in successful", token: token, accountnum: req.body.accountnum });
+        res.status(200).json({ message: "Sign in successful", token: token, userID: req.body.userID });
         console.log("Session token: ", token);
     } catch (error) {
         console.error("Login error: ", error);
