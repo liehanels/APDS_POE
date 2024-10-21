@@ -4,6 +4,7 @@ import express from "express";
 import fs from "fs";
 import https from "https";
 import users from "./ROUTES/user.mjs";
+import tellers from "./ROUTES/teller.mjs";
 import transactions from "./ROUTES/transaction.mjs";
 
 //vars
@@ -35,6 +36,8 @@ app.use((req, res, next) => {
 
 app.use("/user", users);
 app.route("/user", users);
+app.use("/teller", tellers)
+app.route("/teller", tellers)
 app.use("/transaction", transactions);
 app.route("/transaction", transactions);
 

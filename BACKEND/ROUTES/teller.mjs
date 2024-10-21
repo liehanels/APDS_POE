@@ -12,13 +12,13 @@ var bruteforce = new ExpressBrute(store);
 
 // Sign up method
 router.post("/signup", async (req, res) => {
-    const { name, accountnum, password, confirmPassword } = req.body;
+    const { name, tellerID, password, confirmPassword } = req.body;
 
     // Validate the name
     if (!RegEx.testAlphabet(name)) {
         return res.status(400).json({ message: "Invalid name format" });
     }
-    if (!RegEx.testAlphanumerical(accountnum)) {
+    if (!RegEx.testNumbers(tellerID)) {
         return res.status(400).json({message: "Invalid ID format" });
     }
     // Test the password strength
@@ -30,7 +30,7 @@ router.post("/signup", async (req, res) => {
     // Create the new user document
     let newDocument = {
         name: name,
-        accountnum: accountnum,
+        tellerID: tellerID,
         password: hashedPassword,
         confirmPassword: confirmHashedPassword
     };
