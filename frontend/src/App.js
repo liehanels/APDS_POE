@@ -8,6 +8,7 @@ import Login from './components/login';
 import Signup from './components/signup.js';
 import Newtransaction from './components/newtransaction';
 import ViewTransactions from './components/viewtransactions';
+import TellerLogin from './components/tellerLogin.js';
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
                 </ProtectedRoute>
                 } />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/tellerLogin" element={<TellerLogin />} />
           </Routes>
         </div>
       </BrowserRouter>

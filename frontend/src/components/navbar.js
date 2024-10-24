@@ -45,6 +45,11 @@ export default function Navbar() {
                             Sign Up
                         </NavLink>
                     </li>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" to="/tellerLogin">
+                            Employees
+                        </NavLink>
+                    </li>
                 </ul>
             </div>
         </nav>

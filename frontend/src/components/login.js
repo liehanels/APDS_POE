@@ -36,7 +36,7 @@ export default function Login() {
             console.log(data);
             const { token, accountnum } = data;
             login(token);
-            console.log(`Name: ${accountnum}\nToken: ${token}`);
+            console.log(`111Name: ${accountnum}\nToken: ${token}`);
 
             localStorage.setItem("jwt", token);
             localStorage.setItem("accountnum", accountnum);

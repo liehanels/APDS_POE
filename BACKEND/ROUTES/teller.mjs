@@ -31,7 +31,6 @@ router.post("/signup", async (req, res) => {
     let newDocument = {
         name: name,
         tellerID: tellerID,
-        isAdmin: isAdmin,
         password: hashedPassword,
         confirmPassword: confirmHashedPassword
     };
@@ -40,7 +39,7 @@ router.post("/signup", async (req, res) => {
         if(password == confirmPassword)
         {
             try {
-                let collection = await db.collection("users");
+                let collection = await db.collection("tellers");
                 let result = await collection.insertOne(newDocument);
                 console.log(result);
                 res.status(201).send(result);
@@ -60,11 +59,11 @@ router.post("/signup", async (req, res) => {
 
 // Login method
 router.post("/login", bruteforce.prevent, async (req, res) => {
-    const { name, userID, password } = req.body;
-    console.log(name + " trying to sign in");
+    const { tellerID, password } = req.body;
+    console.log(tellerID + " trying to sign in");
     try {
-        const collection = await db.collection("users");
-        const user = await collection.findOne({ userID });
+        const collection = await db.collection("tellers");
+        const user = await collection.findOne({ tellerID });
 
         if (!user) {
             return res.status(401).json({ message: "Account number invalid" });

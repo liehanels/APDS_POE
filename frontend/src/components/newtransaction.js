@@ -10,7 +10,6 @@ export default function NewTransaction() {
     });
     const navigate = useNavigate();
     const token = localStorage.getItem("jwt");
-    console.log(token);
 
     useEffect(() => {
         const accountnum = localStorage.getItem("accountnum");
