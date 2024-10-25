@@ -25,14 +25,12 @@ router.post("/signup", async (req, res) => {
     const passwordStrong = RegEx.testPassword(password);
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    const confirmHashedPassword = await bcrypt.hash(confirmPassword, 10);
 
     // Create the new user document
     let newDocument = {
         name: name,
         accountnum: accountnum,
-        password: hashedPassword,
-        confirmPassword: confirmHashedPassword
+        password: hashedPassword
     };
     if (passwordStrong)
     {

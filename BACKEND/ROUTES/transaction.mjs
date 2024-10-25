@@ -10,9 +10,13 @@ router.get("/transactions", checkauth, async (req, res) => {
     try {
         const accountnum = req.query.accountnum;
         const collection = await db.collection("transactions");
-        const transactions = await collection.find({ accountnum: accountnum }).toArray();
-
-        res.status(200).send(transactions);
+        if (accountnum != null){
+            const transactions = await collection.find({ accountnum: accountnum }).toArray();
+            res.status(200).send(transactions);
+        } else {
+            const transactions = await collection.get().toArray();
+            res.status(200).send(transactions);
+        }
     } catch (error) {
         console.error("Error fetching transactions:", error);
         res.status(500).send({ error: "An error occurred while fetching transactions." });
@@ -45,7 +49,8 @@ router.post("/newtransaction", checkauth, async (req, res) => {
         let newDocument = {
             accountnum: req.body.accountnum,
             transactionAmount: req.body.transactionAmount,
-            transactionAddress: req.body.transactionAddress
+            transactionAddress: req.body.transactionAddress,
+            transactionStatus: "Pending"
         };
 
         // Log the new document before inserting

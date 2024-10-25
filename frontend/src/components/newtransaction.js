@@ -7,6 +7,7 @@ export default function NewTransaction() {
         accountnum: "",
         transactionAmount: "",
         transactionAddress: "",
+        transactionStatus: "Pending",
     });
     const navigate = useNavigate();
     const token = localStorage.getItem("jwt");
@@ -32,6 +33,7 @@ export default function NewTransaction() {
             accountnum: DOMPurify.sanitize(form.accountnum),
             transactionAmount: DOMPurify.sanitize(form.transactionAmount),
             transactionAddress: DOMPurify.sanitize(form.transactionAddress),
+            transactionStatus: DOMPurify.sanitize(form.transactionStatus),
         };
 
         try {

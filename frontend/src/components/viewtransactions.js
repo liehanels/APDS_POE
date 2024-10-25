@@ -40,6 +40,7 @@ export default function Transactions() {
                             <th>User</th>
                             <th>Transaction Amount</th>
                             <th>Transaction Address</th>
+                            <th>Transaction Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,6 +49,7 @@ export default function Transactions() {
                                 <td>{transaction.accountnum}</td>
                                 <td>{transaction.transactionAmount}</td>
                                 <td>{transaction.transactionAddress}</td>
+                                <td>{transaction.transactionStatus}</td>
                             </tr>
                         ))}
                     </tbody>
