@@ -42,7 +42,7 @@ export default function Login() {
             localStorage.setItem("accountnum", tellerID);
 
             setForm({ tellerID: "", password: "" });
-            navigate("/newtransaction");
+            navigate("/transactionApproval");
         } catch (error) {
             window.alert(error);
             console.log(error);

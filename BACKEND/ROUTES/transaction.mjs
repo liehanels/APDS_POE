@@ -2,9 +2,41 @@ import checkauth from "../check-auth.mjs";
 import express from "express"
 import db from "../db/conn.mjs";
 import { RegEx } from "../regex.mjs";
+import mongoose from 'mongoose';
+import Transaction from "../model/transactionModel.mjs";
+
+import dotenv from "dotenv";
+dotenv.config();
+
+const mongoURI = process.env.ATLAS_URI || "";
 
 const router = express.Router();
 
+mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 10000,
+    socketTimeoutMS: 45000,
+  });
+  
+  mongoose.connection.on('connected', () => {
+    console.log('Connected to MongoDB');
+  });
+  
+  mongoose.connection.on('error', (err) => {
+    console.error(`Error connecting to MongoDB: ${err.message}`);
+  });
+  
+  mongoose.connection.on('disconnected', () => {
+    console.log('Disconnected from MongoDB');
+  });
+  
+  process.on('SIGINT', async () => {
+    await mongoose.connection.close();
+    console.log('Connection to MongoDB closed due to application termination');
+    process.exit(0);
+  });
+  
 //get all transactions for a user
 router.get("/transactions", checkauth, async (req, res) => {
     try {
@@ -14,7 +46,7 @@ router.get("/transactions", checkauth, async (req, res) => {
             const transactions = await collection.find({ accountnum: accountnum }).toArray();
             res.status(200).send(transactions);
         } else {
-            const transactions = await collection.get().toArray();
+            const transactions = await collection.find().toArray();
             res.status(200).send(transactions);
         }
     } catch (error) {
@@ -73,5 +105,41 @@ router.post("/newtransaction", checkauth, async (req, res) => {
         res.status(500).send({ error: "An error occurred while processing the transaction." });
     }
 });
-
+router.patch('/transactions/:id', async (req, res) => {
+    console.log('PATCH /transactions/:id called with ID:', req.params.id);
+    try {
+      const { status } = req.body;
+      const { id } = req.params;
+      
+      // Check MongoDB connection state
+      if (mongoose.connection.readyState !== 1) {
+        console.log('MongoDB connection not ready:', mongoose.connection.readyState);
+        return res.status(500).json({ message: 'MongoDB connection not ready' });
+      }
+  
+      let transaction;
+      try {
+        const objectId = new mongoose.Types.ObjectId(id);
+        transaction = await Transaction.findById(objectId);
+      } catch (e) {
+        console.log('Invalid ObjectId format:', id);
+        return res.status(400).json({ message: 'Invalid ObjectId format' });
+      }
+  
+      if (!transaction) {
+        console.log('Transaction not found for ID:', id);
+        return res.status(404).json({ message: 'Transaction not found' });
+      }
+  
+      transaction.transactionStatus = status;
+      await transaction.save();
+      console.log('Transaction updated:', transaction);
+  
+      res.status(200).json(transaction);
+    } catch (error) {
+      console.log('Error:', error);
+      res.status(500).json({ message: 'Error updating transaction status', error });
+    }
+  });
+  
 export default router;
