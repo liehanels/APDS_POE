@@ -30,7 +30,8 @@ router.post("/signup", async (req, res) => {
     let newDocument = {
         name: name,
         accountnum: accountnum,
-        password: hashedPassword
+        password: hashedPassword,
+        role: "user"
     };
     if (passwordStrong)
     {
@@ -87,5 +88,45 @@ router.post("/login", bruteforce.prevent, async (req, res) => {
         res.status(500).json({ message: "Something went wrong, please try again." });
     }
 });
+
+router.get('/checkUser', authenticateJWT, async (req, res) => { 
+    console.log("Checking user")
+    const userId = req.user.id; 
+    try {
+        const collection = db.collection("users");
+        const user = await collection.findOne({ _id: userId }); 
+
+        if (user) {
+            return res.status(200).json({ 
+                message: "User found", 
+                role: user.role 
+            });
+        } else {
+            return res.status(404).json({ message: "User not found" });
+        }
+    } catch (error) { 
+        console.error("Error checking user:", error);
+        return res.status(500).json({ message: "Internal server error" }); 
+    }
+});
+
+function authenticateJWT(req, res, next) {
+    const authHeader = req.headers.authorization;
+
+    if (authHeader) {
+        const token = authHeader.split(' ')[1]; 
+
+        jwt.verify(token, "asdFASFLkasdASdASdAfSGASAsfjsSjkdAKJnsdjImCryingkjasDkASd", (err, user) => {
+            if (err) {
+                return res.sendStatus(403); // Forbidden
+            }
+
+            req.user = user; 
+            next(); 
+        });
+    } else {
+        res.sendStatus(401); // Unauthorized
+    }
+}
 
 export default router;

@@ -27,8 +27,8 @@ export default function Transactions() {
         fetchTransactions();
     }, [accountnum, token]);
 
-    const updateTransactionStatus = async (id, status) => {
-        console.log('Updating transaction', id, 'to status', status); // Log the ID and status
+    const updateTransactionStatus = async (id, transactionStatus) => {
+        console.log('Updating transaction', id, 'to status', transactionStatus); // Log the ID and status
         try {
           const response = await fetch(`https://localhost:3001/transaction/transactions/${id}`, {
             method: "PATCH",
@@ -36,7 +36,7 @@ export default function Transactions() {
               "Content-Type": "application/json",
               "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify({ status })
+            body: JSON.stringify({ transactionStatus })
           });
       
           if (response.ok) {

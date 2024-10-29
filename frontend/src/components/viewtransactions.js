@@ -8,7 +8,7 @@ export default function Transactions() {
     useEffect(() => {
         async function fetchTransactions() {
             try {
-                const response = await fetch(`https://localhost:3001/transaction/transactions?accountnum=${accountnum}`, {
+                const response = await fetch(`https://localhost:3001/transaction/transactions/userlist/?accountnum=${accountnum}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

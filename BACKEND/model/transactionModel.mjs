@@ -7,6 +7,6 @@ const transactionSchema = new mongoose.Schema({
   transactionStatus: { type: String, enum: ['Pending', 'Approved', 'Denied'], default: 'Pending' }
 });
 
-const Transaction = mongoose.model('Transaction', transactionSchema);
+const Transaction = mongoose.model('transactions', transactionSchema);
 
 export default Transaction;

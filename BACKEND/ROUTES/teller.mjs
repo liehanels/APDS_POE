@@ -30,7 +30,8 @@ router.post("/signup", async (req, res) => {
     let newDocument = {
         name: name,
         tellerID: tellerID,
-        password: hashedPassword
+        password: hashedPassword,
+        role: "teller"
     };
     if (passwordStrong)
     {
