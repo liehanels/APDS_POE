@@ -90,11 +90,14 @@ router.post("/login", bruteforce.prevent, async (req, res) => {
 });
 
 router.get('/checkUser', authenticateJWT, async (req, res) => { 
-    console.log("Checking user")
-    const userId = req.user.id; 
+    console.log("Checking user");
+
+    // Access accountnum from the request body (as sent by the frontend)
+    const accountnum = req.query.accountnum; 
+
     try {
         const collection = db.collection("users");
-        const user = await collection.findOne({ _id: userId }); 
+        const user = await collection.findOne({ accountnum: accountnum }); 
 
         if (user) {
             return res.status(200).json({ 
