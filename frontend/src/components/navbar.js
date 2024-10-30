@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Logo from "../logo.svg";
 import "bootstrap/dist/css/bootstrap.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthProvider";
+
+const Logo = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='100' height='100'%3E%3Cg fill='%23000' fill-rule='evenodd'%3E%3Cpath d='M100 100l40 40-40 40-40-40 40-40zM0 100a100 100 0 10200 0 100 100 0 00-200 0zM100 0l-40 40 40 40 40-40-40-40z' /%3E%3C/g%3E%3C/svg%3E";
 
 export default function Navbar() {
   const { logout, user } = useAuth();
@@ -117,12 +118,12 @@ export default function Navbar() {
           {user && !isLoading && role === 'teller' && (
             <>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/addTeller">
+                <NavLink className="nav-link" to="/tellerSignup">
                   Add Teller
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/addViewAllTransactions">
+                <NavLink className="nav-link" to="/viewAllTransactions">
                   View All Transactions
                 </NavLink>
               </li>

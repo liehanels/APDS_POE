@@ -77,7 +77,7 @@ router.post("/login", bruteforce.prevent, async (req, res) => {
         // Authentication success
         const token = jwt.sign(
             { username: req.body.userID, password: req.body.password },
-            "asdFASFLkasdASdASdAfSGASAsfjsSjkdAKJnsdjImCryingkjasDkASd",
+            "asdFASFLkasdASdASdAfSGAimnotcryingimjusthappysfjsSjkdAKJnsdjkjasDkASd",
             { expiresIn: "1h" }
         );
         res.status(200).json({ message: "Sign in successful", token: token, userID: req.body.userID });

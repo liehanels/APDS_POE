@@ -1,20 +1,20 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Dodgy Bank",
+  "name": "Some random bank",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='100' height='100'%3E%3Cg fill='%23000' fill-rule='evenodd'%3E%3Cpath d='M100 100l40 40-40 40-40-40 40-40zM0 100a100 100 0 10200 0 100 100 0 00-200 0zM100 0l-40 40 40 40 40-40-40-40z' /%3E%3C/g%3E%3C/svg%3E",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/svg"
     },
     {
-      "src": "logo192.png",
-      "type": "image/png",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='100' height='100'%3E%3Cg fill='%23000' fill-rule='evenodd'%3E%3Cpath d='M100 100l40 40-40 40-40-40 40-40zM0 100a100 100 0 10200 0 100 100 0 00-200 0zM100 0l-40 40 40 40 40-40-40-40z' /%3E%3C/g%3E%3C/svg%3E",
+      "type": "image/svg",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
-      "type": "image/png",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='100' height='100'%3E%3Cg fill='%23000' fill-rule='evenodd'%3E%3Cpath d='M100 100l40 40-40 40-40-40 40-40zM0 100a100 100 0 10200 0 100 100 0 00-200 0zM100 0l-40 40 40 40 40-40-40-40z' /%3E%3C/g%3E%3C/svg%3E",
+      "type": "image/svg",
       "sizes": "512x512"
     }
   ],

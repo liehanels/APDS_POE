@@ -14,5 +14,4 @@ const checkauth=(req, res, next) =>
         });
     }
 };
-
 export default checkauth

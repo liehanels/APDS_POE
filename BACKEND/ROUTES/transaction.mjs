@@ -3,6 +3,7 @@ import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
 import { RegEx } from "../regex.mjs";
 import dotenv from "dotenv";
+import checkauthEmployee from "../check-auth-teller.mjs";
 
 dotenv.config();
 const mongoURI = process.env.ATLAS_URI || "";
@@ -47,23 +48,15 @@ router.get("/transactions/userlist", checkauth, async (req, res) => {
   }
 });
 
-// Get all transactions for a user
-router.get("/transactions", checkauth, async (req, res) => {
+// Get all pending transactions
+router.get("/transactions", checkauthEmployee, async (req, res) => {
   try {
-    const accountnum = req.query.accountnum;
     const collection = client.db("users").collection("transactions");
     let transactions;
 
-    if (accountnum != null) {
-      transactions = await collection.find({ 
-        accountnum: accountnum,
-        transactionStatus: "Pending"
-      }).toArray();
-    } else {
       transactions = await collection.find({ 
         transactionStatus: "Pending"
       }).toArray();
-    }
 
     res.status(200).send(transactions);
   } catch (error) {
@@ -72,6 +65,20 @@ router.get("/transactions", checkauth, async (req, res) => {
   }
 });
 
+// Get all transactions
+router.get("/alltransactions", checkauthEmployee, async (req, res) => {
+  try {
+    const collection = client.db("users").collection("transactions");
+    let transactions;
+
+      transactions = await collection.find({ }).toArray();
+
+    res.status(200).send(transactions);
+  } catch (error) {
+    console.error("Error fetching transactions:", error);
+    res.status(500).send({ error: "An error occurred while fetching transactions." });
+  }
+});
 
 // Create a new transaction
 router.post("/newtransaction", checkauth, async (req, res) => {
