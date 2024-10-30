@@ -10,6 +10,7 @@ export function AuthProvider({ children }) {
 
   const login = async (token, accountnum) => { // Include accountnum
     localStorage.setItem("jwt", token);
+    localStorage.setItem("accountnum", accountnum)
     setIsAuthenticated(true);
 
     try {

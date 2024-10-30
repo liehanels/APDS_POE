@@ -89,7 +89,7 @@ router.post("/login", bruteforce.prevent, async (req, res) => {
     }
 });
 
-router.get('/checkUser', authenticateJWT, async (req, res) => { 
+router.get('/checkUser', async (req, res) => { 
     console.log("Checking user");
 
     // Access accountnum from the request body (as sent by the frontend)
@@ -105,7 +105,10 @@ router.get('/checkUser', authenticateJWT, async (req, res) => {
                 role: user.role 
             });
         } else {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(200).json({ 
+                message: "Teller found", 
+                role: "teller"
+            });
         }
     } catch (error) { 
         console.error("Error checking user:", error);
