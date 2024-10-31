@@ -13,7 +13,7 @@ jobs:
             cd BACKEND
             npm install npm
             npm install express-brute
-            npm rebuild bcrypt --build-from-source
+            npm install bcrypt
             npm install cors
       - run:
           name: Start Application
