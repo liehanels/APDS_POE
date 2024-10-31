@@ -1,5 +1,5 @@
 import express from "express";
-import db from "../db/conn.mjs";
+import db from "../DB/conn.mjs";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import ExpressBrute from "express-brute";
