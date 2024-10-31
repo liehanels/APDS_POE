@@ -11,9 +11,9 @@ jobs:
           name: Install dependencies
           command: |
             cd BACKEND
-            npm install -g n 21.6.1
+            npm install -g npm
             npm install express-brute
-            npm install bcrypt@5.1.1
+            npm rebuild bcrypt --build-from-source
             npm install cors
       - run:
           name: Start Application
