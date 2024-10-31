@@ -7,11 +7,20 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - run: cd ../BACKEND/package.json
-      - run: npm start
-      - run: npm test-api
+      - run:
+          name: Install dependencies
+          command: |
+            cd ../BACKEND
+            npm install
+      - run:
+          name: Start Application
+          command: npm start
+      - run:
+          name: Run Newman tests
+          command: newman run ../APDSPOE.postman_collection.json -e ../APDS_POE.postman_environment.json --reporters cli,junit
       - attach_workspace:
           at: ~/workspace
+
 workflows:
   version: 2
   sonar_workflow:
