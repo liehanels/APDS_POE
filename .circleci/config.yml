@@ -7,7 +7,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - run: cd ../../BACKEND/package.json
+      - run: cd BACKEND/package.json
       - run: npm install
       - run: npm start
       - attach_workspace:
@@ -34,7 +34,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            cd ../../BACKEND
+            cd BACKEND
             npm install
       - run:
           name: Run Newman tests
