@@ -11,7 +11,7 @@ jobs:
           name: Install dependencies
           command: |
             cd BACKEND
-            npm install
+            nvm install 21.6.1
             npm install express-brute
             npm install bcrypt@5.1.1
             npm install cors
