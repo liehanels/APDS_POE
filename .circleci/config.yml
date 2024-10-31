@@ -13,14 +13,10 @@ jobs:
             cd BACKEND
             npm install
       - run:
-          name: Start Application
-          command: |
-            cd BACKEND
-            npm start
-      - run:
           name: SonarQube Analysis
           command: |
             cd BACKEND
+            npm start
             SONAR_BRANCH="${CIRCLE_BRANCH:-master}"
             echo "Sonar branch value is: " $SONAR_BRANCH
             echo "Sonar org value is : "$SONAR_ORG
