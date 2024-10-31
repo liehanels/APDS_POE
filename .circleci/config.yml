@@ -17,12 +17,6 @@ jobs:
           command: |
             cd BACKEND
             npm start &
-      - run:
-          name: Wait for server to be ready
-          command: |
-            while ! curl --silent --fail http://localhost:3001/healthcheck; do
-              sleep 1
-            done
       - attach_workspace:
           at: ~/workspace
       - run:
