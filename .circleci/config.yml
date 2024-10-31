@@ -40,32 +40,20 @@ jobs:
           
   newmantest:
     docker:
-      - image: circleci/node:18.20.2 # Use a Node.js Docker image with development tools
+      - image: cimg/node:18.20.2
     resource_class: small
     steps:
       - checkout
-      - run:
-          name: Install build tools
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y build-essential python3
       - run:
           name: Install dependencies
           command: |
             cd BACKEND
             npm install
       - run:
-          name: Remove and Reinstall bcrypt
-          command: |
-            cd BACKEND
-            npm uninstall bcrypt
-            npm cache clean --force
-            npm install bcrypt@5.0.1 --build-from-source
-      - run:
           name: Run Newman tests
           command: |
             cd BACKEND
-            npm run test-api
+            npm run test-api &
       - attach_workspace:
           at: ~/workspace
 
