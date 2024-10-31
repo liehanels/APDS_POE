@@ -7,23 +7,33 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - run: cd BACKEND
-      - run: npm install
-      - run: npm start
+      - run:
+          name: Install dependencies
+          command: |
+            cd BACKEND
+            npm install
+      - run:
+          name: Start Application
+          command: |
+            cd BACKEND
+            npm start
       - attach_workspace:
           at: ~/workspace
-      - run: |
-          SONAR_BRANCH="${CIRCLE_BRANCH:-master}"
-          echo "Sonar branch value is: " $SONAR_BRANCH
-          echo "Sonar org value is : "$SONAR_ORG
-          sonar-scanner \
-          -Dsonar.projectKey="$SONAR_PROJECT_KEY" \
-          -Dsonar.organization="$SONAR_ORG" \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.exclusions="**/android/**,**/ios/**" \
-          -Dsonar.login="$SONAR_TOKEN" \
-          -Dsonar.branch.name="$SONAR_BRANCH" \
-          -Dsonar.sources="."
+      - run:
+          name: SonarQube Analysis
+          command: |
+            cd BACKEND
+            SONAR_BRANCH="${CIRCLE_BRANCH:-master}"
+            echo "Sonar branch value is: " $SONAR_BRANCH
+            echo "Sonar org value is : "$SONAR_ORG
+            sonar-scanner \
+            -Dsonar.projectKey="$SONAR_PROJECT_KEY" \
+            -Dsonar.organization="$SONAR_ORG" \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.exclusions="**/android/**,**/ios/**" \
+            -Dsonar.login="$SONAR_TOKEN" \
+            -Dsonar.branch.name="$SONAR_BRANCH" \
+            -Dsonar.sources="."
 
   newmantest:
     docker:
@@ -38,7 +48,9 @@ jobs:
             npm install
       - run:
           name: Run Newman tests
-          command: ./APDSPOE.postman_collection.json -e ./APDS_POE.postman_environment.json --reporters cli,junit
+          command: |
+            cd BACKEND
+            npm run test-api
       - attach_workspace:
           at: ~/workspace
 
