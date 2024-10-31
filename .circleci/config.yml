@@ -8,10 +8,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install build tools
-          command: |
-            sudo apt-get update
-      - run:
           name: Install dependencies
           command: |
             cd BACKEND
