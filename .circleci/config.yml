@@ -12,10 +12,6 @@ jobs:
           command: |
             cd BACKEND
             npm install
-            npm uninstall bcrypt
-            npm cache clean --force
-            npm install bcrypt --build-from-source
-            npm install cors
       - run:
           name: Start Application
           command: |
