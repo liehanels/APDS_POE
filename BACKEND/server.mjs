@@ -22,8 +22,8 @@ app.use(express.json());
 
 // Middleware to set security headers
 app.use((req, res, next) => {
-    res.setHeader("X-Frame-Options", "DENY");
-    res.setHeader("Content-Security-Policy", "frame-ancestors 'self'");
+    //res.setHeader("X-Frame-Options", "DENY");
+    //res.setHeader("Content-Security-Policy", "frame-ancestors 'self'");
     next();
 });
 
