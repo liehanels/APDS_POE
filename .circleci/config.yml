@@ -17,6 +17,8 @@ jobs:
           command: |
             cd BACKEND
             npm start &
+      - attach_workspace:
+          at: ~/workspace
       - run:
           name: SonarQube Analysis
           command: |
