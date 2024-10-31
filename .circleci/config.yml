@@ -15,6 +15,7 @@ jobs:
             npm install express-brute
             npm install bcrypt
             npm install cors
+            npm rebuild
       - run:
           name: Start Application
           command: |
