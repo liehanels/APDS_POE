@@ -8,6 +8,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install build tools
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y build-essential python3
+      - run:
           name: Install dependencies
           command: |
             cd BACKEND
@@ -17,6 +22,12 @@ jobs:
           command: |
             cd BACKEND
             npm start &
+      - run:
+          name: Wait for server to be ready
+          command: |
+            while ! curl --silent --fail http://localhost:3001/healthcheck; do
+              sleep 1
+            done
       - attach_workspace:
           at: ~/workspace
       - run:
@@ -33,20 +44,34 @@ jobs:
             -Dsonar.exclusions="**/android/**,**/ios/**" \
             -Dsonar.login="$SONAR_TOKEN" \
             -Dsonar.branch.name="$SONAR_BRANCH" \
-            -Dsonar.sources="."
-
-
+            -Dsonar.sources="." \
+            -Dsonar.c.file.suffixes=- \
+            -Dsonar.cpp.file.suffixes=- \
+            -Dsonar.objc.file.suffixes=-
+          
   newmantest:
     docker:
-      - image: postman/newman_alpine33
+      - image: circleci/node:18.20.2 # Use a Node.js Docker image with development tools
     resource_class: small
     steps:
       - checkout
+      - run:
+          name: Install build tools
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y build-essential python3
       - run:
           name: Install dependencies
           command: |
             cd BACKEND
             npm install
+      - run:
+          name: Remove and Reinstall bcrypt
+          command: |
+            cd BACKEND
+            npm uninstall bcrypt
+            npm cache clean --force
+            npm install bcrypt@5.0.1 --build-from-source
       - run:
           name: Run Newman tests
           command: |
