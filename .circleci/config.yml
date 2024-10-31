@@ -12,6 +12,9 @@ jobs:
           command: |
             cd BACKEND
             npm install
+            npm install express-brute
+            npm install bcrypt
+            npm install cors
       - run:
           name: Start Application
           command: |
