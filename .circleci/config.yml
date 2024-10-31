@@ -7,17 +7,38 @@ jobs:
     resource_class: small
     steps:
       - checkout
+      - run: cd ./BACKEND/package.json
+      - run: npm install
+      - run: npm start
+      - attach_workspace:
+          at: ~/workspace
+      - run: |
+          SONAR_BRANCH="${CIRCLE_BRANCH:-master}"
+          echo "Sonar branch value is: " $SONAR_BRANCH
+          echo "Sonar org value is : "$SONAR_ORG
+          sonar-scanner \
+          -Dsonar.projectKey="$SONAR_PROJECT_KEY" \
+          -Dsonar.organization="$SONAR_ORG" \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.exclusions="**/android/**,**/ios/**" \
+          -Dsonar.login="$SONAR_TOKEN" \
+          -Dsonar.branch.name="$SONAR_BRANCH" \
+          -Dsonar.sources="."
+
+  newmantest:
+    docker:
+      - image: postman/newman_alpine33
+    resource_class: small
+    steps:
+      - checkout
       - run:
           name: Install dependencies
           command: |
-            cd ../BACKEND
+            cd ./BACKEND
             npm install
       - run:
-          name: Start Application
-          command: npm start
-      - run:
           name: Run Newman tests
-          command: newman run ../APDSPOE.postman_collection.json -e ../APDS_POE.postman_environment.json --reporters cli,junit
+          command: ./APDSPOE.postman_collection.json -e ./APDS_POE.postman_environment.json --reporters cli,junit
       - attach_workspace:
           at: ~/workspace
 
@@ -26,3 +47,6 @@ workflows:
   sonar_workflow:
     jobs:
       - sonarqube
+      - newmantest:
+          requires:
+            - sonarqube
