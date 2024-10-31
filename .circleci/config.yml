@@ -12,10 +12,9 @@ jobs:
           command: |
             cd BACKEND
             npm install
-            npm install express-brute
             npm uninstall bcrypt
             npm cache clean --force
-            npm install bcrypt@5.0.1 --build-from-source
+            npm install bcrypt --build-from-source
             npm install cors
       - run:
           name: Start Application
