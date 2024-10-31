@@ -11,10 +11,14 @@ jobs:
           name: Install dependencies
           command: |
             cd BACKEND
-            npm install npm
+            npm install
             npm install express-brute
             npm install bcrypt
             npm install cors
+      - run:
+          name: Start Application
+          command: |
+            cd BACKEND
             npm start
       - attach_workspace:
           at: ~/workspace
