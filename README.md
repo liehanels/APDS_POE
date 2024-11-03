@@ -5,6 +5,7 @@
  * 101
  Password
  * P@ssw0rd
+ 
  Pro tip
  When creating a new user account using sign up, copy the account number that's generated
  for an easy sign in. Sign in uses account number and password.
