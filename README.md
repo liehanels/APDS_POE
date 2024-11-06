@@ -3,7 +3,8 @@
  Employees service numbers
  * 100
  * 101
- 
+ User account number
+ * MLTQM6JCC8
  Password
  * P@ssw0rd
  
@@ -11,4 +12,4 @@
  When creating a new user account using sign up, copy the account number that's generated
  for an easy sign in. Sign in uses account number and password.
  
-Link to Youtube demo -> https://youtu.be/4D5S30t0gTE
+Link to Youtube demo -> https://youtu.be/t86Ra8OWAFM
